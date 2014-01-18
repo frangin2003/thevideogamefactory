@@ -5,6 +5,18 @@ $( document ).ready(function() {
     var mySplitter = new Splitter("id_splitter");
     mySplitter.split();
     $('#myTab a:first').tab('show');
+    $('#id_canvas_aspect_ratio').select2();
+    $('#id_splitter').on('splitter.resize', function(e) {
+        console.log(e);
+    });
+
+    // Init canvas settings
+    $('#id_canvas_height').on('keyup', function(e) {
+        $('#myCanvas').height = $('#id_canvas_height').val();
+    });
+    $('#id_canvas_width').on('keyup', function(e) {
+        $('#myCanvas').width = $('#id_canvas_width').val();
+    });
 
     // Init canvas
     var stage = new createjs.Stage("myCanvas");
@@ -15,11 +27,8 @@ $( document ).ready(function() {
     stage.addChild(circle);
     stage.update();
 
-    // Init canvas settings
-    $('#id_canvas_height').on('keyup', function(e) {
-        $('#myCanvas').height = $('#id_canvas_height').val();
-    });
-    $('#id_canvas_width').on('keyup', function(e) {
-        $('#myCanvas').width = $('#id_canvas_width').val();
-    });
+    var myCanvas = new Canvas('id_right', 'myCanvas', 'id_canvas_aspect_ratio', false);
+
+
+    $(window).resize( myCanvas.resize );
 });
